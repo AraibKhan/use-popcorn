@@ -34,6 +34,16 @@ const MovieDetails = ({
     getMovieDetails();
   }, [selectedId]);
 
+  useEffect(() => {
+    if (!movie.Title) return;
+    document.title = `Movie | ${movie.Title}`;
+
+    return () => {
+      document.title = "usePopcorn";
+      console.log(`Cleaning up effect ${movie.Title}`);
+    };
+  }, [movie]);
+
   const handleAdd = () => {
     const newWatchedMovie = {
       imdbID: selectedId,
