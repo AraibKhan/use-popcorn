@@ -76,7 +76,7 @@ const StarRating = ({
 
   const handleRating = (rating) => {
     setRating(rating);
-    // onSetRating(rating);
+    onSetRating(rating);
   };
 
   return (
