@@ -23,10 +23,14 @@ function ErrorMsg({ msg }) {
 export default function App() {
   const [query, setQuery] = useState("");
   const [movies, setMovies] = useState([]);
-  const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState("");
   const [selectedId, setSelectedId] = useState(null);
+
+  const [watched, setWatched] = useState(() => {
+    const watchedData = JSON.parse(localStorage.getItem("watched"));
+    return watchedData;
+  });
 
   useEffect(() => {
     const controller = new AbortController();
@@ -65,6 +69,10 @@ export default function App() {
     return () => controller.abort();
   }, [query]);
 
+  useEffect(() => {
+    localStorage.setItem("watched", JSON.stringify(watched));
+  }, [watched]);
+
   const handleSelectedMovie = (id) => {
     if (id === selectedId) {
       setSelectedId(null);
@@ -79,6 +87,7 @@ export default function App() {
 
   const handleAddWatched = (movie) => {
     setWatched((movies) => [...movies, movie]);
+    // localStorage.setItem("watched", JSON.stringify([...watched, movie]));
   };
 
   const handleRemoveWatched = (movieID) => {
