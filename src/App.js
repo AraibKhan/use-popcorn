@@ -29,7 +29,7 @@ export default function App() {
 
   const [watched, setWatched] = useState(() => {
     const watchedData = JSON.parse(localStorage.getItem("watched"));
-    return watchedData;
+    return watchedData !== null ? watchedData : [];
   });
 
   useEffect(() => {
@@ -87,7 +87,6 @@ export default function App() {
 
   const handleAddWatched = (movie) => {
     setWatched((movies) => [...movies, movie]);
-    // localStorage.setItem("watched", JSON.stringify([...watched, movie]));
   };
 
   const handleRemoveWatched = (movieID) => {
