@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import StarRating from "./StarRating";
 import Loader from "./Loader";
+import { useKey } from "../useKey";
 
 const MovieDetails = ({
   selectedId,
@@ -44,18 +45,7 @@ const MovieDetails = ({
     };
   }, [movie]);
 
-  useEffect(() => {
-    const callback = (e) => {
-      if (e.code === "Escape") {
-        handleCloseMovie();
-        console.log("CLOSING!!!");
-      }
-    };
-
-    document.addEventListener("keydown", callback);
-
-    return () => document.removeEventListener("keydown", callback);
-  }, [handleCloseMovie]);
+  useKey("Escape", handleCloseMovie);
 
   const handleAdd = () => {
     const newWatchedMovie = {
